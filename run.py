@@ -135,14 +135,21 @@ class CasinoManager:
 
             time.sleep(10)
 
+    def close(self):
+        self.driver.close()
+        self.driver.quit()
+
 
 def main():
     manager = CasinoManager(script_path=config.CASINO_SCRIPT, casino_url=CASINO_URL)
-    manager.load_page(url=START_URL)
-    manager.login_confirm()
-    manager.run_casino()
-    manager.execute_script()
-    manager.start_process()
+    try:
+        manager.load_page(url=START_URL)
+        manager.login_confirm()
+        manager.run_casino()
+        manager.execute_script()
+        manager.start_process()
+    except KeyboardInterrupt:
+        manager.close()
 
 
 if __name__ == "__main__":
