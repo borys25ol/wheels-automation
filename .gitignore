@@ -1,0 +1,5 @@
+/credentials/google_creds.json
+/tests/.pytest_cache
+.ve
+__pycache__/
+.idea/

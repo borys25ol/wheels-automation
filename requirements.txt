@@ -1,0 +1,6 @@
+Flask==1.1.2
+google-api-python-client
+oauth2client
+gspread
+webdriver-manager==3.2.2
+selenium==3.141.0
