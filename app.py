@@ -14,6 +14,11 @@ config_name = os.getenv("CONFIG") or "dev"
 app.config.from_object(config_by_name[config_name])
 
 
+@app.route("/api/health-check")
+def heal_check():
+    return jsonify(success=True)
+
+
 @app.route("/api/roulette", methods=["POST"])
 @cross_origin()
 def add_number():
