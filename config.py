@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from time import strftime, gmtime
 
 PROJECT_PATH = Path(__file__).resolve().parent
 
@@ -8,6 +9,11 @@ CREDENTIALS_FILE = PROJECT_PATH / "credentials" / "google_creds.json"
 CASINO_SCRIPT = PROJECT_PATH / "casino.js"
 
 SELENOID_HOST = "http://46.101.16.210:4444/wd/hub"
+
+LOGGER_PATH = (
+    PROJECT_PATH / "logs" / f'consumer_log_{strftime("%Y-%m-%d-%H-%M", gmtime())}.log'
+)
+LOGGER_FORMAT = "%(filename)s[LINE:%(lineno)d]# %(levelname)-8s [%(asctime)s]  %(message)s"
 
 
 class Config:

@@ -1,11 +1,14 @@
-import logging
 import os
 import time
 
 import config
 
 from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException, JavascriptException
+from selenium.common.exceptions import (
+    NoSuchElementException,
+    JavascriptException,
+    ElementClickInterceptedException,
+)
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
@@ -13,8 +16,9 @@ from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.remote.webdriver import WebDriver as RemoteWebDriver
 
+from utils import create_logger
 
-logger = logging.getLogger(__name__)
+logger = create_logger(__name__)
 
 START_URL = "https://www.grosvenorcasinos.com"
 CASINO_URL = "https://www.grosvenorcasinos.com/games/grosvenor-victoria-roulette"
@@ -22,7 +26,7 @@ CASINO_URL = "https://www.grosvenorcasinos.com/games/grosvenor-victoria-roulette
 
 class CasinoManager:
     def __init__(self, script_path, casino_url):
-        self.driver = self.init_remote_webdriver()
+        self.driver = self.init_webdriver()
         self.script_path = script_path
         self.casino_url = casino_url
 
@@ -55,11 +59,13 @@ class CasinoManager:
         return browser
 
     def load_page(self, url):
+        logger.info("Loading page: `%s`", url)
         self.driver.get(url)
 
     @staticmethod
     def login_confirm():
         input("Hit Enter here if you have summited the form: <Enter>")
+        logger.info("Login successfully approved!")
 
     def run_casino(self):
         self.load_page(self.casino_url)
@@ -70,7 +76,13 @@ class CasinoManager:
             logger.exception("Join button not found!")
             return
 
-        join_button.click()
+        try:
+            join_button.click()
+        except ElementClickInterceptedException:
+            logger.exception("Error when click the button.")
+            return
+
+        return True
 
     def switch_to_down_frame(self):
         WebDriverWait(driver=self.driver, timeout=15).until(
@@ -130,9 +142,14 @@ class CasinoManager:
             if self.check_session_expired():
                 logger.info("Session expired. Reload page!")
                 self.reload_page()
-                self.run_casino()
+                success = self.run_casino()
+
+                if not success:
+                    continue
+
                 self.execute_script()
 
+            logger.info("Sleep 10 sec before check session expired!")
             time.sleep(10)
 
     def close(self):
@@ -141,6 +158,7 @@ class CasinoManager:
 
 
 def main():
+    logger.info("Start Casino Manager!")
     manager = CasinoManager(script_path=config.CASINO_SCRIPT, casino_url=CASINO_URL)
     try:
         manager.load_page(url=START_URL)
