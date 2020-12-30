@@ -1,4 +1,4 @@
-const endpoint = 'http://0.0.0.0:5000/api/roulette';
+const endpoint = 'http://46.101.19.75:5000/api/roulette';
 
 const configuration = {
     interval: 15000,
