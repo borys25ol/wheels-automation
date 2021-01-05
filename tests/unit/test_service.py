@@ -1,6 +1,5 @@
 import pytest
 
-from algo import calculate_missing
 
 TEST_OLD_NUMBERS_1 = [14, 0, 5, 32, 25, 13, 6, 20, 15, 0, 16, 34, 22, 4, 13, 16, 13]
 TEST_NEW_NUMBERS_1 = [14, 0, 5, 32, 25, 13, 6, 20, 15, 0, 16]
@@ -42,6 +41,10 @@ TEST_OLD_NUMBERS_10 = [14, 21, 33, 8, 12, 14, 0, 5, 32, 25, 13, 6, 14, 21, 33, 1
 TEST_NEW_NUMBERS_10 = [15, 14, 21, 33, 8]
 TEST_RESULT_10 = [15]
 
+TEST_OLD_NUMBERS_11 = [14, 21, 33, 8, 12, 14, 0, 5, 32, 25, 13, 6, 14, 21, 33, 16]
+TEST_NEW_NUMBERS_11 = [14, 21, 33, 8, 12, 14, 0, 5, 32, 25, 13, 6, 14, 21, 33, 16]
+TEST_RESULT_11 = []
+
 
 @pytest.mark.parametrize(
     "test_input,expected",
@@ -56,12 +59,12 @@ TEST_RESULT_10 = [15]
         ([TEST_OLD_NUMBERS_8, TEST_NEW_NUMBERS_8], TEST_RESULT_8),
         ([TEST_OLD_NUMBERS_9, TEST_NEW_NUMBERS_9], TEST_RESULT_9),
         ([TEST_OLD_NUMBERS_10, TEST_NEW_NUMBERS_10], TEST_RESULT_10),
+        ([TEST_OLD_NUMBERS_11, TEST_NEW_NUMBERS_11], TEST_RESULT_11),
     ],
 )
 def test_valid_calculating_missing(test_input, expected, service):
     """
     Test valid extracting missing numbers from list.
     """
-    # result = service.calculate_missing(*test_input)
-    result = calculate_missing(*test_input[::-1])
+    result = service.calculate_missing(*test_input)
     assert result == expected
