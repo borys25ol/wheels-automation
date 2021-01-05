@@ -25,7 +25,7 @@ def add_number():
     content = request.json
 
     numbers, source = content["numbers"], content["source"]
-    service = GoogleSpreadsheetService(sheet_name=app.config["SHEET_NAME"])
+    service = GoogleSpreadsheetService(sheet_name=app.config["SHEET_NAME"][source])
 
     added_numbers = service.append_data_row(values=numbers, column=source)
     total_numbers = service.get_column_data(column=source)
