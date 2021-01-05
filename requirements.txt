@@ -5,3 +5,4 @@ oauth2client
 gspread
 webdriver-manager==3.2.2
 selenium==3.141.0
+python-dotenv==0.15.0

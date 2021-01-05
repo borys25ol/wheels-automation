@@ -15,6 +15,9 @@ LOGGER_PATH = (
 )
 LOGGER_FORMAT = "%(filename)s[LINE:%(lineno)d]# %(levelname)-8s [%(asctime)s]  %(message)s"
 
+MRGREEN_EMAIL = os.getenv("MRGREEN_EMAIL")
+MRGREEN_PASSWORD = os.getenv("MRGREEN_PASSWORD")
+
 
 class Config:
     DEBUG = False
@@ -27,7 +30,10 @@ class Config:
 
     CORS_HEADERS = "Content-Type"
 
-    SHEET_NAME = "Automation BIG Master Roul - Template -ML"
+    SHEET_NAME = {
+        "grosvenorcasinos.com": "Automation BIG Master Roul - Template -ML",
+        "livecasino.mrgreen.com": "Mr,Green BIG Master Roul - Template -ML"
+    }
 
 
 class DevelopmentConfig(Config):

@@ -3,3 +3,5 @@
 .ve
 __pycache__/
 .idea/
+.env
+/logs
