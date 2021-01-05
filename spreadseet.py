@@ -8,7 +8,10 @@ logger = create_logger(__name__)
 
 
 class GoogleSpreadsheetService:
-    COLUMNS = {"grosvenorcasinos": {"index": 1, "range": "A2", "worksheet": 2}}
+    COLUMNS = {
+        "grosvenorcasinos": {"index": 1, "range": "A2", "worksheet": "Tracking"},
+        "livecasino.mrgreen.com": {"index": 1, "range": "A2", "worksheet": "Tracking"},
+    }
 
     def __init__(self, sheet_name=None):
         self.sheet = self.init_sheet(sheet_name=sheet_name)
@@ -18,7 +21,7 @@ class GoogleSpreadsheetService:
         Extract data from Custom Search API
         and push it to Google Spreadsheet.
         """
-        sheet = self._get_worksheet(index=self.COLUMNS[column]["worksheet"])
+        sheet = self._get_worksheet(name=self.COLUMNS[column]["worksheet"])
 
         values_in_sheet = self.get_column_data(column=column)
         if values_in_sheet:
@@ -50,7 +53,7 @@ class GoogleSpreadsheetService:
         """
         Extract all data in column and filter empty values.
         """
-        sheet = self._get_worksheet(index=self.COLUMNS[column]["worksheet"])
+        sheet = self._get_worksheet(name=self.COLUMNS[column]["worksheet"])
 
         values_list = sheet.col_values(col=self.COLUMNS[column]["index"])
 
@@ -73,11 +76,19 @@ class GoogleSpreadsheetService:
             f"{column_symbol}{start_table_range + in_column + append - 1}"
         )
 
-    def _get_worksheet(self, index=-1):
+    def _get_worksheet(self, name):
         """
         Return already exist worksheet.
         """
-        worksheet = self.sheet.get_worksheet(index)
+        sheet_data = self.sheet.fetch_sheet_metadata()
+        sheets = sheet_data["sheets"]
+
+        need_sheet = list(filter(lambda v: v["properties"]["title"] == name, sheets))
+
+        try:
+            worksheet = self.sheet.get_worksheet(need_sheet[0]["properties"]["index"])
+        except IndexError:
+            raise ValueError("Sheet not found!")
 
         return worksheet
 
@@ -99,6 +110,11 @@ class GoogleSpreadsheetService:
             old = "".join([str(char) for char in lst2[::-1]])
 
             return new.find(old) == 0
+
+        old_numbers = [int(char) for char in old_numbers]
+
+        if old_numbers == new_numbers:
+            return []
 
         for i in range(1, len(old_numbers)):
             sublist = old_numbers[:-i]
