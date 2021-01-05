@@ -1,4 +1,4 @@
-const endpoint = 'http://127.0.0.1:5000/api/roulette';
+const endpoint = 'https://wheels-casino.herokuapp.com/api/roulette';
 
 const configuration = {
     interval: 15000,
