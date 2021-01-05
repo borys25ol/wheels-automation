@@ -20,16 +20,10 @@ class BaseCasinoManager:
 
     @staticmethod
     def init_webdriver():
-        capabilities = {
-            "acceptInsecureCerts": True,
-            "enableVNC": True,
-            "screenResolution": "1280x1024x24",
-            "sessionTimeout": "600m",
-        }
-        browser = webdriver.Chrome(
-            executable_path=ChromeDriverManager().install(),
-            desired_capabilities=capabilities,
-        )
+        options = webdriver.ChromeOptions()
+        options.add_argument("--start-maximized")
+        browser = webdriver.Chrome(executable_path=ChromeDriverManager().install())
+        browser.maximize_window()
         return browser
 
     @staticmethod
