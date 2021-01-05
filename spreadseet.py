@@ -129,13 +129,16 @@ class GoogleSpreadsheetService:
         """
         Initialize Google Spreadsheet API.
         """
-        credentials = ServiceAccountCredentials.from_json_keyfile_name(
-            config.CREDENTIALS_FILE,
-            [
-                "https://www.googleapis.com/auth/spreadsheets",
-                "https://www.googleapis.com/auth/drive",
-            ],
-        )
+        if config.IS_HEROKU:
+            credentials = ServiceAccountCredentials.from_json(config.CREDENTIALS_JSON)
+        else:
+            credentials = ServiceAccountCredentials.from_json_keyfile_name(
+                config.CREDENTIALS_FILE,
+                [
+                    "https://www.googleapis.com/auth/spreadsheets",
+                    "https://www.googleapis.com/auth/drive",
+                ],
+            )
         client = gspread.authorize(credentials)
 
         sheet = client.open(sheet_name)

@@ -9,6 +9,9 @@ dotenv.load_dotenv()
 PROJECT_PATH = Path(__file__).resolve().parent
 
 CREDENTIALS_FILE = PROJECT_PATH / "credentials" / "google_creds.json"
+CREDENTIALS_JSON = os.getenv("GOOGLE_CREDENTIALS")
+
+IS_HEROKU = bool(os.getenv("IS_HEROKU"))
 
 CASINO_SCRIPT = PROJECT_PATH / "casino.js"
 
