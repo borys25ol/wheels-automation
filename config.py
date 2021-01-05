@@ -40,7 +40,7 @@ class Config:
     CORS_HEADERS = "Content-Type"
 
     SHEET_NAME = {
-        "grosvenorcasinos.com": "Automation BIG Master Roul - Template -ML",
+        "live.grosvenorcasinos.com": "Automation BIG Master Roul - Template -ML",
         "livecasino.mrgreen.com": "Mr,Green BIG Master Roul - Template -ML",
     }
 

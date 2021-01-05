@@ -11,7 +11,7 @@ logger = create_logger(__name__)
 
 class GoogleSpreadsheetService:
     COLUMNS = {
-        "grosvenorcasinos": {"index": 1, "range": "A2", "worksheet": "Tracking"},
+        "live.grosvenorcasinos.com": {"index": 1, "range": "A2", "worksheet": "Tracking"},
         "livecasino.mrgreen.com": {"index": 1, "range": "A2", "worksheet": "Tracking"},
     }
 
