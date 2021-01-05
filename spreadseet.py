@@ -1,3 +1,5 @@
+import json
+
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
@@ -130,7 +132,14 @@ class GoogleSpreadsheetService:
         Initialize Google Spreadsheet API.
         """
         if config.IS_HEROKU:
-            credentials = ServiceAccountCredentials.from_json(config.CREDENTIALS_JSON)
+            json_keyfile = json.loads(config.CREDENTIALS_JSON)
+            credentials = ServiceAccountCredentials.from_json_keyfile_dict(
+                json_keyfile,
+                [
+                    "https://www.googleapis.com/auth/spreadsheets",
+                    "https://www.googleapis.com/auth/drive",
+                ],
+            )
         else:
             credentials = ServiceAccountCredentials.from_json_keyfile_name(
                 config.CREDENTIALS_FILE,
