@@ -2,6 +2,10 @@ import os
 from pathlib import Path
 from time import strftime, gmtime
 
+import dotenv
+
+dotenv.load_dotenv()
+
 PROJECT_PATH = Path(__file__).resolve().parent
 
 CREDENTIALS_FILE = PROJECT_PATH / "credentials" / "google_creds.json"
@@ -13,7 +17,9 @@ SELENOID_HOST = "http://46.101.16.210:4444/wd/hub"
 LOGGER_PATH = (
     PROJECT_PATH / "logs" / f'consumer_log_{strftime("%Y-%m-%d-%H-%M", gmtime())}.log'
 )
-LOGGER_FORMAT = "%(filename)s[LINE:%(lineno)d]# %(levelname)-8s [%(asctime)s]  %(message)s"
+LOGGER_FORMAT = (
+    "%(filename)s[LINE:%(lineno)d]# %(levelname)-8s [%(asctime)s]  %(message)s"
+)
 
 MRGREEN_EMAIL = os.getenv("MRGREEN_EMAIL")
 MRGREEN_PASSWORD = os.getenv("MRGREEN_PASSWORD")
@@ -32,7 +38,7 @@ class Config:
 
     SHEET_NAME = {
         "grosvenorcasinos.com": "Automation BIG Master Roul - Template -ML",
-        "livecasino.mrgreen.com": "Mr,Green BIG Master Roul - Template -ML"
+        "livecasino.mrgreen.com": "Mr,Green BIG Master Roul - Template -ML",
     }
 
 
