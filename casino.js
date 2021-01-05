@@ -1,4 +1,4 @@
-const endpoint = 'http://46.101.19.75:5000/api/roulette';
+const endpoint = 'http://127.0.0.1:5000/api/roulette';
 
 const configuration = {
     interval: 15000,
@@ -32,7 +32,7 @@ const loop = async () => {
 
     state.timeout = setTimeout(loop, configuration.interval);
 
-    await postData(endpoint, {numbers: state.values, source: 'grosvenorcasinos'})
+    await postData(endpoint, {numbers: state.values, source: window.location.hostname})
 };
 
 const postData = async (url, data) => {
