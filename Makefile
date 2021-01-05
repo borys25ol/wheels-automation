@@ -7,4 +7,4 @@ clean:
 	test -d .ve && rm -rf .ve
 
 runserver:
-	.ve/bin/python app.py
+	.ve/bin/python wsgi.py
