@@ -27,6 +27,11 @@ LOGGER_FORMAT = (
 MRGREEN_EMAIL = os.getenv("MRGREEN_EMAIL")
 MRGREEN_PASSWORD = os.getenv("MRGREEN_PASSWORD")
 
+COLUMNS = {
+    "live.grosvenorcasinos.com": {"index": 1, "range": "A2", "worksheet": "Tracking"},
+    "livecasino.mrgreen.com": {"index": 1, "range": "A2", "worksheet": "Tracking"},
+}
+
 
 class Config:
     DEBUG = False
