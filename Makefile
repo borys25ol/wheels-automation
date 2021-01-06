@@ -8,3 +8,9 @@ clean:
 
 runserver:
 	.ve/bin/python wsgi.py
+
+victoria:
+	export PYTHONPATH="." && .ve/bin/python ./wheels/grosvenorcasinos.py
+
+mrgreen:
+	export PYTHONPATH="." && .ve/bin/python ./wheels/mr_green.py
