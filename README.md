@@ -1,6 +1,10 @@
 Wheels Google Spreadsheet API
 ====================
 
+[![Build Status](https://travis-ci.com/borys25ol/wheels-automation.svg?branch=main)](https://travis-ci.com/borys25ol/wheels-automation)
+[![Generic badge](https://img.shields.io/badge/python-3.7-green.svg)](https://shields.io/)
+
+
 Local install
 -------------
 
@@ -27,7 +31,9 @@ Start debug server:
 
 
     $ python wsgi.py
-    OR:
+    
+Or:
+    
     $ make runserver
 
     
