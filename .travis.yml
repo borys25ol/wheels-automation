@@ -4,6 +4,7 @@ python:
   - "3.7.4"
 
 install:
+  - pip intall -r requirements.txt
   - pip install pytest
 
 script:
