@@ -8,5 +8,5 @@ def service():
     """
     Test fixture.
     """
-    service = GoogleSpreadsheetService("Casino")
+    service = GoogleSpreadsheetService
     return service
